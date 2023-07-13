@@ -1,4 +1,4 @@
-
+import Card from './Card'
 import Search from './Search'
 import './App.css'
 
@@ -9,6 +9,8 @@ function App() {
     <>
       <div className='app'>
         <Search/>
+        <Card/>
+        <Card/>
       </div>
     </>
   )
