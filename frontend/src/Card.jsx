@@ -1,8 +1,8 @@
 import React from "react";
 import './Card.css';
 
-const Card = () => {
-
+const Card = (price,title) => {
+     console.log(price)
     return(
         <>
            <div className="card">

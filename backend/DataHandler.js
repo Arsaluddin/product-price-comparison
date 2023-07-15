@@ -3,6 +3,7 @@ const axios = require("axios");
 
 const getFromFlipkart = async (req, res) => {
   const item = req.query.search; // http://../?search=
+  
   try {
     // const url = "https://www.flipkart.com/search?q=redmi+mobile+5g";
     const url = `https://www.flipkart.com/search?q=${item}`;
@@ -19,9 +20,9 @@ const getFromFlipkart = async (req, res) => {
     const title = $('div[class="_4rR01T"]').first().text();
     const price = $('div[class="_30jeq3 _1_WHN1"]').first().text();
 
-    // console.log(title, " ", price);
-
-    return res.status(200).json({ title: title, price: price });
+    console.log(title, " ", price);
+    //  console.log(res.json());
+    return res.status(200).send().json({ title: title, price: price });
   } catch (error) {
     console.log(error);
     return res.status(400).send(error);
