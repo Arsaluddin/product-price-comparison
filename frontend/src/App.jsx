@@ -9,8 +9,7 @@ function App() {
     <>
       <div className='app'>
         <Search/>
-        <Card/>
-        <Card/>
+        
       </div>
     </>
   )
