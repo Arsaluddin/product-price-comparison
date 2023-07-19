@@ -6,6 +6,12 @@ import Card from "./Card";
 
 const Search = () => {
   const [search, setSearch] = useState();
+  //flipkart data
+  const [flip_Title, setFlip_Title] = useState("");
+  const [flip_Price, setFlip_Price] = useState("");
+  //amazone data
+  const [amaz_Title, setAmaz_Title] = useState("");
+  const [amaz_Price, setAmaz_Price] = useState("");
 
   const handleSearch = (e) => {
     setSearch(e);
@@ -13,12 +19,27 @@ const Search = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //getting data from flipkart
     try {
       const { data } = await axios.post(
         `http://localhost:8000/dataFromFlipkart?search=${search}`
       );
-      // const data = response.json();
-      console.log(data);
+      console.log("from flipkart ", data);
+      setFlip_Title(data.title);
+      setFlip_Price(data.price);
+    } catch {
+      console.log("error");
+    }
+
+    //getting data from amazon
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8000/dataFromAmazon?search=${search}`
+      );
+      console.log("from amazon ", data);
+      setAmaz_Title(data.title);
+      setAmaz_Price(data.price);
     } catch {
       console.log("error");
     }
@@ -38,8 +59,8 @@ const Search = () => {
           </button>
         </form>
       </div>
-      <Card />
-      <Card />
+      <Card title={flip_Title} price={flip_Price} />
+      <Card title={amaz_Title} price={amaz_Price} />
     </>
   );
 };
