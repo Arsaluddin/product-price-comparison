@@ -5,76 +5,64 @@ import React from "react";
 import './Search.css'
 
 const Search = () => {
-    const [search , setSearch] = useState();
+  const [search, setSearch] = useState();
+  //flipkart data
+  const [flip_Title, setFlip_Title] = useState("");
+  const [flip_Price, setFlip_Price] = useState("");
+  //amazone data
+  const [amaz_Title, setAmaz_Title] = useState("");
+  const [amaz_Price, setAmaz_Price] = useState("");
 
   const handleSearch = (e) => {
-     setSearch(e);
-  }
-  
-  const handleSubmit = async(e) => {
-      e.preventDefault(); // this is no disable the refresh when the button is clicked
+    setSearch(e);
+  };
 
-      try {
-        const  response  = await axios.post(
-          `http://localhost:8000/dataFromFlipkart?search=${search}`
-        );
-        // const data = response.json();
-        console.log(response)
-        // setTitle(response.title)
-        // setPrice(response.price)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        //now we have title and price, but our product component is in app.jsx, to pass the data there we have to use context api. but we don't need it
-        //we can just render the product page from here
-     }
-     catch{
-       console.log("error")
-     }
-  }
-    
-    return(
-        <>
-          <div className="search-bar">
-           <form  className="form">
-            <input name="search" placeholder='Enter the product name' onChange={(e) => handleSearch(e.target.value)} ></input>
-            <button type="submit" onClick={handleSubmit}>Search</button>
-           </form>
-          </div>
-          <Card/>
-        </>
-    );
-}
+    //getting data from flipkart
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8000/dataFromFlipkart?search=${search}`
+      );
+      console.log("from flipkart ", data);
+      setFlip_Title(data.title);
+      setFlip_Price(data.price);
+    } catch {
+      console.log("error");
+    }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const { data } = await axios.post(
-  //       `http://localhost:8000/dataFromFlipkart?search=${search}`
-  //     );
-  //     // const data = response.json();
-  //     console.log(data);
-  //   } catch {
-  //     console.log("error");
-  //   }
-  // };
+    //getting data from amazon
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8000/dataFromAmazon?search=${search}`
+      );
+      console.log("from amazon ", data);
+      setAmaz_Title(data.title);
+      setAmaz_Price(data.price);
+    } catch {
+      console.log("error");
+    }
+  };
 
-  // return (
-  //   <>
-  //     <div className="search-bar">
-  //       <form className="form">
-  //         <input
-  //           name="search"
-  //           placeholder="Enter the product name"
-  //           onChange={(e) => handleSearch(e.target.value)}
-  //         ></input>
-  //         <button type="submit" onClick={handleSubmit}>
-  //           Search
-  //         </button>
-  //       </form>
-  //     </div>
-  //     <Card />
-  //     <Card />
-  //   </>
-  // );
-
+  return (
+    <>
+      <div className="search-bar">
+        <form className="form">
+          <input
+            name="search"
+            placeholder="Enter the product name"
+            onChange={(e) => handleSearch(e.target.value)}
+          ></input>
+          <button type="submit" onClick={handleSubmit}>
+            Search
+          </button>
+        </form>
+      </div>
+      <Card title={flip_Title} price={flip_Price} />
+      <Card title={amaz_Title} price={amaz_Price} />
+    </>
+  );
+};
 
 export default Search;
