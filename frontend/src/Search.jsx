@@ -1,8 +1,8 @@
 import { useState } from "react";
-import React from "react";
-import "./Search.css";
-import axios from "axios";
+import axios from 'axios'
 import Card from "./Card";
+import React from "react";
+import './Search.css'
 
 const Search = () => {
   const [search, setSearch] = useState();
