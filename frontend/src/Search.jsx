@@ -25,7 +25,7 @@ const Search = () => {
       const { data } = await axios.post(
         `http://localhost:8000/dataFromFlipkart?search=${search}`
       );
-      console.log("from flipkart ", data);
+      // console.log("from flipkart ", data);
       setFlip_Title(data.title);
       setFlip_Price(data.price);
     } catch {
