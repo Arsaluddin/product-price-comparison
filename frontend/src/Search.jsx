@@ -19,14 +19,16 @@ const Search = () => {
       const flipResponse = await axios.post(
         `http://localhost:8000/dataFromFlipkart?search=${search}`
       );
-      setFlipProducts([flipResponse.data]);
+      setFlipProducts(flipResponse.data);
 
       const amazResponse = await axios.post(
         `http://localhost:8000/dataFromAmazon?search=${search}`
       );
-      setAmazProducts([amazResponse.data]);
+      setAmazProducts(amazResponse.data);
     } catch (error) {
       console.log("Error fetching data:", error);
+      setFlipProducts([]);
+      setAmazProducts([]);
     }
   };
 
